@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import {Link} from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
 import 'firebase/compat/auth';
+import logo from "../../img/logo.png";
 
 interface OwnProps {}
 
@@ -29,7 +30,7 @@ const RegistrationForm: FunctionComponent<Props> = (props) => {
           sx={{
               display: 'flex',
               width: '100wv',
-              height: '100vh',
+              minHeight: '100vh',
               overflow: 'hidden',
               alignItems: 'center',
               justifyContent: 'center',
@@ -37,6 +38,11 @@ const RegistrationForm: FunctionComponent<Props> = (props) => {
               color: 'text.primary',
               px: 1,
               textAlign: 'center',
+              flexDirection: 'column',
+              '& img': {
+                  marginTop: '20px',
+                  marginBottom: '20px',
+              }
           }}
       >
           <Box
@@ -51,10 +57,11 @@ const RegistrationForm: FunctionComponent<Props> = (props) => {
                   },
                   '& h1': {
                       fontSize: '50px',
+                      margin: '20px 0'
                   },
               }}
           >
-              <h1>Register</h1>
+              <img src={logo} alt="logo"/>
               <TextField
                   fullWidth
                   id="outlined-basic"

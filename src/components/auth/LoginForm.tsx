@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import {Link} from "react-router-dom";
+import logo from "../../img/logo.png";
 
 interface OwnProps {}
 
@@ -23,8 +24,13 @@ const LoginForm: FunctionComponent<Props> = (props) => {
               borderRadius: 1,
               p: 0,
               textAlign: 'center',
+              flexDirection: 'column',
+              '& img': {
+                  margin: '20px, 0',
+              }
           }}
       >
+          <img src={logo} alt="logo"/>
           <Box
               component="form"
               noValidate
@@ -39,8 +45,6 @@ const LoginForm: FunctionComponent<Props> = (props) => {
                   }
               }}
           >
-              <h1>Login</h1>
-
               <TextField
                   fullWidth
                   id="outlined-basic"
