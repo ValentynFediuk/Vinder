@@ -1,9 +1,10 @@
-import React, {FunctionComponent, useState} from 'react';
+import React, {FunctionComponent, SyntheticEvent, useState} from 'react';
 import Box from "@mui/material/Box";
 import {TextField} from "@mui/material";
 import Button from "@mui/material/Button";
 import {Link} from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
+import 'firebase/compat/auth';
 
 interface OwnProps {}
 
@@ -11,14 +12,16 @@ type Props = OwnProps;
 
 const RegistrationForm: FunctionComponent<Props> = (props) => {
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [userData, setUserData] = useState({
+        email: '',
+        password: '',
+    })
 
-    const createUser = () => {
+    const createUser = async (e: SyntheticEvent<HTMLFormElement>) => {
+        e.preventDefault()
         const authentication = getAuth();
 
-        createUserWithEmailAndPassword(authentication, email, password)
-            .then(r => console.log(r))
+        await createUserWithEmailAndPassword(authentication, userData.email, userData.password)
     }
 
   return (
@@ -38,11 +41,7 @@ const RegistrationForm: FunctionComponent<Props> = (props) => {
       >
           <Box
               component="form"
-              onSubmit={(e: { preventDefault: () => void; }) => {
-                  e.preventDefault()
-                  createUser()
-              }
-              }
+              onSubmit={createUser}
               noValidate
               autoComplete="off"
               sx={{
@@ -74,7 +73,7 @@ const RegistrationForm: FunctionComponent<Props> = (props) => {
                   label="E-mail"
                   variant="outlined"
                   type="email"
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={e => setUserData({...userData, email: e.target.value})}
               />
               <TextField
                   fullWidth
@@ -82,7 +81,7 @@ const RegistrationForm: FunctionComponent<Props> = (props) => {
                   label="Password"
                   variant="outlined"
                   type="password"
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={e => setUserData({...userData, password: e.target.value})}
               />
               <TextField
                   fullWidth
