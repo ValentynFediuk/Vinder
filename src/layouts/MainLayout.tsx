@@ -1,4 +1,4 @@
-import React, {FunctionComponent} from 'react';
+import React from 'react';
 import {ThemeProvider, createTheme} from '@mui/material/styles';
 import Register from "../pages/Register";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
@@ -11,12 +11,7 @@ const darkTheme = createTheme({
     },
 });
 
-interface OwnProps {
-}
-
-type Props = OwnProps;
-
-const MainLayout: FunctionComponent<Props> = (props) => {
+const MainLayout = () => {
 
     return (
         <ThemeProvider theme={darkTheme}>
