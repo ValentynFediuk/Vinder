@@ -1,18 +1,20 @@
-import React, { FunctionComponent } from 'react';
+import React, {FunctionComponent, useEffect} from 'react';
 import LoginForm from "../components/auth/LoginForm";
 import Box from "@mui/material/Box";
+import {collection, doc, setDoc, getDoc} from "firebase/firestore";
+import {db} from "../firebse";
 
-interface OwnProps {}
 
-type Props = OwnProps;
+const Login: FunctionComponent = () => {
 
-const Login: FunctionComponent<Props> = (props) => {
 
-  return (
-      <Box>
-          <LoginForm />
-      </Box>
-  );
+
+
+    return (
+        <Box>
+            <LoginForm/>
+        </Box>
+    );
 };
 
 export default Login;

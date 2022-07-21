@@ -1,17 +1,40 @@
-import React, {createContext, FC, useState} from 'react';
-import {TypeSetState, IUser} from "../types";
+import * as React from "react";
+import {createContext, FC, PropsWithChildren, useEffect, useState} from "react";
+import {db} from "../firebse";
+import {collection, doc, setDoc, getDocs, getDoc} from "firebase/firestore";
 
-interface IContext{
-    user: IUser | null
-    setUser: TypeSetState<IUser | null>
-}
+export const AuthContext = createContext<any>(null);
 
-const AuthContext = createContext<IContext>({} as IContext)
+const AuthProvider: FC<PropsWithChildren> = ({children}) => {
+    const [users, setUsers] = useState<any>({});
 
-export const AuthProvider: FC = ({children}: any) => {
-    const [user, setUser] = useState<IUser | null>(null)
+    useEffect(() => {
+        const fetchData = async () => {
+            const querySnapshot = await getDocs(collection(db, "users"));
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+            });
+        // @ts-ignore
+            console.log(querySnapshot)
+        //     try {
+        //         if (docSnap.exists()) {
+        //             console.log("Document data:", docSnap.data());
+        //
+        //         } else {
+        //             console.log("No such document!");
+        //         }
+        //
+        //     } catch (e) {
+        //         console.error(e)
+        //     }
+        }
+        fetchData()
+            .catch(console.error);
+    },[])
+
     return (
-        <AuthContext.Provider value={{user, setUser}}>
+        <AuthContext.Provider value={users}>
             {children}
         </AuthContext.Provider>
     );
