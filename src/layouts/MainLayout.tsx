@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {ThemeProvider, createTheme} from '@mui/material/styles';
 import Register from "../pages/Register";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "../pages/Login";
-
+import AuthProvider  from '../providers/AuthProvider';
 
 const darkTheme = createTheme({
     palette: {
@@ -11,18 +11,20 @@ const darkTheme = createTheme({
     },
 });
 
-const MainLayout = () => {
+const MainLayout:FC = ()  => {
 
     return (
-        <ThemeProvider theme={darkTheme}>
-            <BrowserRouter>
-                <Routes>
+        <AuthProvider>
+            <ThemeProvider theme={darkTheme}>
+                <BrowserRouter>
+                    <Routes>
                         <Route path="/" element={<Register/>}/>
                         <Route path="register" element={<Register/>}/>
                         <Route path="login" element={<Login/>}/>
-                </Routes>
-            </BrowserRouter>
-        </ThemeProvider>
+                    </Routes>
+                </BrowserRouter>
+            </ThemeProvider>
+        </AuthProvider>
     );
 };
 
