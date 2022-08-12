@@ -3,7 +3,6 @@ import {ThemeProvider, createTheme} from '@mui/material/styles';
 import Register from "../pages/Register";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "../pages/Login";
-import AuthProvider  from '../providers/AuthProvider';
 
 const darkTheme = createTheme({
     palette: {
@@ -11,20 +10,18 @@ const darkTheme = createTheme({
     },
 });
 
-const MainLayout:FC = ()  => {
+const MainLayout: FC = () => {
 
     return (
-        <AuthProvider>
-            <ThemeProvider theme={darkTheme}>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/" element={<Register/>}/>
-                        <Route path="register" element={<Register/>}/>
-                        <Route path="login" element={<Login/>}/>
-                    </Routes>
-                </BrowserRouter>
-            </ThemeProvider>
-        </AuthProvider>
+        <ThemeProvider theme={darkTheme}>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Register/>}/>
+                    <Route path="register" element={<Register/>}/>
+                    <Route path="login" element={<Login/>}/>
+                </Routes>
+            </BrowserRouter>
+        </ThemeProvider>
     );
 };
 
