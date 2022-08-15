@@ -1,34 +1,33 @@
-import React, {FunctionComponent, SyntheticEvent, useState} from 'react';
+import React, {FunctionComponent, SyntheticEvent, useEffect, useState} from 'react';
 import Box from "@mui/material/Box";
 import {Link} from "react-router-dom";
 import logo from "../../img/logo.png";
-import {signInWithEmailAndPassword, getAuth} from "firebase/auth";
 import {OutlinedInput} from "../inputs/OutlinedInput";
 import OutlinedBtn from "../buttons/OutlinedBtn";
+import axios from "axios";
+
+export interface ISignUpData {
+    email: string;
+    password: string;
+}
+
+export type TUserList = []
+
 
 const LoginForm: FunctionComponent = () => {
-    const [userData, setUserData] = useState({
+
+    const [userData, setUserData] = useState<ISignUpData>({
         email: '',
         password: '',
     })
 
     const loginUser = async (e: SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const auth = getAuth();
 
         try {
-            await signInWithEmailAndPassword(
-                auth,
-                userData.email,
-                userData.password
-            )
-                .then((userCredential) => {
-                    // Signed in
-                    const user = userCredential.user;
-                    console.log(user)
-
-                    // ...
-                })
+            // @ts-ignore
+            const {data: {token}} = await axios.post<TUserList>('http://localhost:5000/auth/login', {username: userData.email, password: userData.password})
+            console.log(token)
         } catch (error: any) {
             error.message && console.log(error.message)
         }
