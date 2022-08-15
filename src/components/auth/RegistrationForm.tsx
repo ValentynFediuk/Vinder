@@ -1,29 +1,35 @@
 import React, {FunctionComponent, SyntheticEvent, useState} from 'react';
 import Box from "@mui/material/Box";
 import {Link} from "react-router-dom";
-import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
-import 'firebase/compat/auth';
 import logo from "../../img/logo.png";
 import {OutlinedInput} from "../inputs/OutlinedInput";
 import OutlinedBtn from "../buttons/OutlinedBtn";
+import axios from "axios";
+
+export interface ISignUpData {
+    email: string;
+    password: string;
+}
+
+interface ServerData {
+    foo: string
+    bar: string
+}
 
 const RegistrationForm: FunctionComponent = () => {
 
-    const [userData, setUserData] = useState({
-        email: '',
+    const [userData, setUserData] = useState<any>({
+        username: '',
         password: '',
     })
 
     const createUser = async (e: SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const auth = getAuth();
+        console.log('sumbited')
 
         try {
-            await createUserWithEmailAndPassword(
-                auth,
-                userData.email,
-                userData.password
-            )
+            const data = await axios.post<any>('http://localhost:5000/auth/registration', {username: userData.username, password: userData.password})
+            console.log(data)
         } catch (error: any) {
             error.message && console.log(error.message)
         }
@@ -82,12 +88,12 @@ const RegistrationForm: FunctionComponent = () => {
                 <OutlinedInput
                     type="email"
                     label="E-mail"
-                    onChange={e => setUserData({...userData, email: e.target.value})}
+                    onChange={e => setUserData({...userData, username: e.target.value})}
                 />
                 <OutlinedInput
                     type="password"
                     label="Password"
-                    onChange={e => setUserData({...userData, email: e.target.value})}
+                    onChange={e => setUserData({...userData, password: e.target.value})}
                 />
                 <OutlinedInput
                     type="password"
