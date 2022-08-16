@@ -1,18 +1,15 @@
-import React, {FunctionComponent, SyntheticEvent, useEffect, useState} from 'react';
+import React, {FunctionComponent, useContext, useState} from 'react';
 import Box from "@mui/material/Box";
 import {Link} from "react-router-dom";
-import logo from "../../img/logo.png";
+import logo from "./../../img/logo.png";
 import {OutlinedInput} from "../inputs/OutlinedInput";
 import OutlinedBtn from "../buttons/OutlinedBtn";
-import axios from "axios";
+import {Context} from "../../index";
 
 export interface ISignUpData {
     email: string;
     password: string;
 }
-
-export type TUserList = []
-
 
 const LoginForm: FunctionComponent = () => {
 
@@ -21,16 +18,11 @@ const LoginForm: FunctionComponent = () => {
         password: '',
     })
 
-    const loginUser = async (e: SyntheticEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    const {store} = useContext(Context);
 
-        try {
-            // @ts-ignore
-            const {data: {token}} = await axios.post<TUserList>('http://localhost:5000/auth/login', {username: userData.email, password: userData.password})
-            console.log(token)
-        } catch (error: any) {
-            error.message && console.log(error.message)
-        }
+    const loginUser = (e:any) => {
+        e.preventDefault();
+        store.login(userData.email, userData.password)
     }
 
     return (
