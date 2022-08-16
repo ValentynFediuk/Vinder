@@ -1,38 +1,27 @@
-import React, {FunctionComponent, SyntheticEvent, useState} from 'react';
+import React, {FunctionComponent, SyntheticEvent, useContext, useState} from 'react';
 import Box from "@mui/material/Box";
 import {Link} from "react-router-dom";
-import logo from "../../img/logo.png";
+import logo from "./../../img/logo.png";
 import {OutlinedInput} from "../inputs/OutlinedInput";
 import OutlinedBtn from "../buttons/OutlinedBtn";
-import axios from "axios";
-
-export interface ISignUpData {
-    email: string;
-    password: string;
-}
-
-interface ServerData {
-    foo: string
-    bar: string
-}
+import {Context} from "../../index";
 
 const RegistrationForm: FunctionComponent = () => {
 
     const [userData, setUserData] = useState<any>({
-        username: '',
+        firstName: '',
+        lastName: '',
+        email: '',
         password: '',
+        confirmPassword: ''
     })
 
-    const createUser = async (e: SyntheticEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        console.log('sumbited')
+    const {store} = useContext(Context);
 
-        try {
-            const data = await axios.post<any>('http://localhost:5000/auth/registration', {username: userData.username, password: userData.password})
-            console.log(data)
-        } catch (error: any) {
-            error.message && console.log(error.message)
-        }
+    const createUser = (e: SyntheticEvent<HTMLFormElement>) => {
+        e.preventDefault()
+
+        store.registration(userData.firstName, userData.lastName, userData.email, userData.password, userData.confirmPassword)
     }
 
     return (
@@ -80,15 +69,17 @@ const RegistrationForm: FunctionComponent = () => {
                 <OutlinedInput
                     type="text"
                     label="First name"
+                    onChange={e => setUserData({...userData, firstName: e.target.value})}
                 />
                 <OutlinedInput
                     type="text"
                     label="Last name"
+                    onChange={e => setUserData({...userData, lastName: e.target.value})}
                 />
                 <OutlinedInput
                     type="email"
                     label="E-mail"
-                    onChange={e => setUserData({...userData, username: e.target.value})}
+                    onChange={e => setUserData({...userData, email: e.target.value})}
                 />
                 <OutlinedInput
                     type="password"
@@ -98,6 +89,7 @@ const RegistrationForm: FunctionComponent = () => {
                 <OutlinedInput
                     type="password"
                     label="Confirm password"
+                    onChange={e => setUserData({...userData, confirmPassword: e.target.value})}
                 />
                 <OutlinedBtn>
                     Submit

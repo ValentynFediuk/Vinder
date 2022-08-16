@@ -1,9 +1,8 @@
-import React, {FunctionComponent, useEffect} from 'react';
+import React, {FunctionComponent} from 'react';
 import LoginForm from "../components/auth/LoginForm";
 import Box from "@mui/material/Box";
-import axios from "axios";
 
-const Login: FunctionComponent = (props: any) => {
+const Login: FunctionComponent = () => {
     return (
         <Box>
             <LoginForm/>
