@@ -1,35 +1,49 @@
-import React, {FunctionComponent, useContext, useState} from 'react';
+import React, {FunctionComponent, useContext} from 'react';
 import Box from "@mui/material/Box";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import logo from "./../../img/logo.png";
-import {OutlinedInput} from "../inputs/OutlinedInput";
-import OutlinedBtn from "../buttons/OutlinedBtn";
+import OutlinedBtn from "../ui/button/OutlinedBtn";
+import * as yup from "yup";
+import {useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
 import {Context} from "../../index";
+import {Input} from "../ui";
 
-export interface ISignUpData {
+type FormData = {
     email: string;
     password: string;
-}
+};
+
+const schema = yup.object().shape({
+    email: yup.string().email().required(),
+    password: yup.string().required(),
+});
+
 
 const LoginForm: FunctionComponent = () => {
 
-    const [userData, setUserData] = useState<ISignUpData>({
-        email: '',
-        password: '',
-    })
+    const { setValue, handleSubmit, formState: { errors } } = useForm<FormData>({
+        resolver: yupResolver(schema),
+    });
+
+    const loginUser = (data: FormData, e: any) => {
+        e.preventDefault()
+        store.login(data.email, data.password)
+            .then(() => {
+                if (store.isAuth) {
+                    navigate('/user-page')
+                }
+            })
+    };
+
+    const navigate = useNavigate();
 
     const {store} = useContext(Context);
-
-    const loginUser = (e:any) => {
-        e.preventDefault();
-        store.login(userData.email, userData.password)
-    }
 
     return (
         <Box
             sx={{
                 display: 'flex',
-                width: '100%',
                 height: '100vh',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -49,13 +63,15 @@ const LoginForm: FunctionComponent = () => {
         >
             <img
                 src={logo}
-                alt="logo"/>
+                alt="logo"
+            />
             <Box
                 component="form"
-                onSubmit={loginUser}
+                onSubmit={handleSubmit(loginUser)}
                 noValidate
                 autoComplete="off"
                 sx={{
+                    width: '100%',
                     maxWidth: '500px',
                     '& .MuiFormControl-root, & button': {
                         marginBottom: '20px',
@@ -65,19 +81,24 @@ const LoginForm: FunctionComponent = () => {
                     }
                 }}
             >
-                <OutlinedInput
-                    label='Email'
-                    type='email'
-                    onChange={e => setUserData({...userData, email: e.target.value})}
-                />
-                <OutlinedInput
-                    label='Password'
-                    type='password'
-                    onChange={e => setUserData({...userData, password: e.target.value})}
-                />
-                <OutlinedBtn>
-                    Submit
-                </OutlinedBtn>
+                {/*<OutlinedInput*/}
+                {/*    onChange={(e) => setValue('email', e.target.value, { shouldValidate: true })}*/}
+                {/*    error={Boolean(errors.email)}*/}
+                {/*    label='Email'*/}
+                {/*    type='email'*/}
+                {/*/>*/}
+                {/*<p> {errors.email?.message} </p>*/}
+                {/*<OutlinedInput*/}
+                {/*    onChange={(e) => setValue('password', e.target.value, { shouldValidate: true })}*/}
+                {/*    error={Boolean(errors.password)}*/}
+                {/*    label='Password'*/}
+                {/*    type='password'*/}
+                {/*/>*/}
+                {/*<p> {errors.password?.message} </p>*/}
+                {/*<OutlinedBtn>*/}
+                {/*    Submit*/}
+                {/*</OutlinedBtn>*/}
+                <Input></Input>
                 <Link to="/register">
                     <OutlinedBtn>
                         Register

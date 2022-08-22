@@ -1,9 +1,9 @@
 import React, {FC, useContext, useEffect, useState} from 'react';
-import {Context} from "./index";
 import {observer} from "mobx-react-lite";
 import {IUser} from "./models/IUser";
 import UserService from "./services/UserService";
 import MainLayout from "./layouts/MainLayout";
+import {Context} from "./index";
 
 const App: FC = () => {
     const {store} = useContext(Context);
@@ -36,6 +36,7 @@ const App: FC = () => {
     //         </div>
     //     );
     // }
+
 
     return (
         <>

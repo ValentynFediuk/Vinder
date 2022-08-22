@@ -2,15 +2,12 @@ import React, {FunctionComponent, SyntheticEvent, useContext, useState} from 're
 import Box from "@mui/material/Box";
 import {Link} from "react-router-dom";
 import logo from "./../../img/logo.png";
-import {OutlinedInput} from "../inputs/OutlinedInput";
-import OutlinedBtn from "../buttons/OutlinedBtn";
+import OutlinedBtn from "../ui/button/OutlinedBtn";
 import {Context} from "../../index";
 
 const RegistrationForm: FunctionComponent = () => {
 
     const [userData, setUserData] = useState<any>({
-        firstName: '',
-        lastName: '',
         email: '',
         password: '',
         confirmPassword: ''
@@ -21,7 +18,7 @@ const RegistrationForm: FunctionComponent = () => {
     const createUser = (e: SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        store.registration(userData.firstName, userData.lastName, userData.email, userData.password, userData.confirmPassword)
+        store.registration(userData.email, userData.password, userData.confirmPassword)
     }
 
     return (
@@ -66,31 +63,18 @@ const RegistrationForm: FunctionComponent = () => {
                     src={logo}
                     alt="logo"
                 />
-                <OutlinedInput
-                    type="text"
-                    label="First name"
-                    onChange={e => setUserData({...userData, firstName: e.target.value})}
-                />
-                <OutlinedInput
-                    type="text"
-                    label="Last name"
-                    onChange={e => setUserData({...userData, lastName: e.target.value})}
-                />
-                <OutlinedInput
-                    type="email"
-                    label="E-mail"
-                    onChange={e => setUserData({...userData, email: e.target.value})}
-                />
-                <OutlinedInput
-                    type="password"
-                    label="Password"
-                    onChange={e => setUserData({...userData, password: e.target.value})}
-                />
-                <OutlinedInput
-                    type="password"
-                    label="Confirm password"
-                    onChange={e => setUserData({...userData, confirmPassword: e.target.value})}
-                />
+                {/*<OutlinedInput*/}
+                {/*    type="email"*/}
+                {/*    label="E-mail"*/}
+                {/*/>*/}
+                {/*<OutlinedInput*/}
+                {/*    type="password"*/}
+                {/*    label="Password"*/}
+                {/*/>*/}
+                {/*<OutlinedInput*/}
+                {/*    type="password"*/}
+                {/*    label="Confirm password"*/}
+                {/*/>*/}
                 <OutlinedBtn>
                     Submit
                 </OutlinedBtn>

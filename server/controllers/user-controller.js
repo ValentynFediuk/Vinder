@@ -9,11 +9,11 @@ class UserController {
             if (!errors.isEmpty()) {
                 return next(ApiError.BadRequest('Ошибка при валидации', errors.array()))
             }
-            const {firstName, lastName, email, password, confirmPassword} = req.body;
+            const {email, password, confirmPassword} = req.body;
             if (password !== confirmPassword) {
                 return next(ApiError.BadRequest('Passwords do not match', errors.array()))
             }
-            const userData = await userService.registration(firstName, lastName, email, password, confirmPassword);
+            const userData = await userService.registration(email, password);
             res.cookie('refreshToken', userData.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
             return res.json(userData);
         } catch (e) {

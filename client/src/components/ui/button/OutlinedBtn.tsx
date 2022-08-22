@@ -2,7 +2,7 @@ import React from 'react';
 import Button from "@mui/material/Button";
 import {OutlinedBtnProps} from './OutlinedBtn.props'
 
-const OutlinedBtn = ({children, sx}: OutlinedBtnProps): JSX.Element => {
+const OutlinedBtn = ({children, onClick, sx}: OutlinedBtnProps): JSX.Element => {
 
     return (
         <Button

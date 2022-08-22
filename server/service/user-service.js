@@ -7,7 +7,7 @@ const UserDto = require('../dtos/user-dto');
 const ApiError = require('../exceptions/api-error');
 
 class UserService {
-    async registration(firstName, lastName, email, password, confirmPassword) {
+    async registration(email, password) {
         const candidate = await UserModel.findOne({email})
         if (candidate) {
             throw ApiError.BadRequest(`Пользователь с почтовым адресом ${email} уже существует`)
@@ -31,6 +31,7 @@ class UserService {
         if (!user) {
             throw ApiError.BadRequest('Неккоректная ссылка активации')
         }
+        console.log('link', user)
         user.isActivated = true;
         await user.save();
     }

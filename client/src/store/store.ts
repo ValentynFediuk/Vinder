@@ -38,9 +38,10 @@ export default class Store {
         }
     }
 
-    async registration(firstName: string, lastName: string, email: string, password: string, confirmPassword: string) {
+    async registration(email: string, password: string, confirmPassword: string) {
         try {
-            const response = await AuthService.registration(firstName, lastName, email, password, confirmPassword);
+            console.log('email', email, password, confirmPassword)
+            const response = await AuthService.registration(email, password, confirmPassword);
             console.log(response)
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
@@ -65,7 +66,7 @@ export default class Store {
         this.setLoading(true);
         try {
             const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, {withCredentials: true})
-            console.log(response);
+            console.log(response)
             localStorage.setItem('token', response.data.accessToken);
             this.setAuth(true);
             this.setUser(response.data.user);
