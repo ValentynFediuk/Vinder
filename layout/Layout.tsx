@@ -5,11 +5,11 @@ import styles from './Layout.module.scss';
 const Layout: React.FC<LayoutProps> = ({ children }) => (
     <div className={styles.layout}>
         <header>
-            h
+            header
         </header>
         <main>{children}</main>
         <footer>
-            f
+            footer
         </footer>
     </div>
 );
