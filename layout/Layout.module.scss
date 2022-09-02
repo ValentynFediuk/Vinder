@@ -1,0 +1,15 @@
+.layout {
+    background: $main-bg-color;
+    min-height: 100vh;
+    > header {
+        border-bottom: 1px solid $main-border-color;
+        height: 20vh;
+    }
+    > main {
+        height: 60vh;
+    }
+    > footer {
+        border-top: 1px solid $main-border-color;
+        height: 20vh;
+    }
+}
