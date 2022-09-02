@@ -1,4 +1,4 @@
-// export interface InputProps {
+// export interface ButtonProps {
 //     onChange?: (e: ChangeEvent<HTMLInputElement>) => void
 //     helperText?: string
 //     value?: string
@@ -18,4 +18,5 @@ export interface InputProps
     props?: any
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void
     error?: FieldError;
+    label: string;
 }
