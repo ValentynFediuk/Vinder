@@ -2,14 +2,13 @@
     position: relative;
     display: inline-block;
     padding: 25px 35px;
-    margin: 40px 0;
     color: $button-color;
     text-decoration: none;
     text-transform: uppercase;
     transition: 0.5s;
     letter-spacing: 4px;
     overflow: hidden;
-    margin-right: 50px;
+    text-align: center;
     &:hover {
         background: $button-bg-hover;
         color: #050801;

@@ -3,13 +3,13 @@ import {ButtonProps} from "./button.props";
 import styles from './button.module.scss';
 
 export const Button = forwardRef(
-    ({ error, label, ...props }: ButtonProps, ref: ForwardedRef<HTMLInputElement>) => (
+    ({ error, label, children, ...props }: ButtonProps, ref: ForwardedRef<HTMLInputElement>) => (
         <a className={styles.button}>
             <span></span>
             <span></span>
             <span></span>
             <span></span>
-            Neon button
+            {children}
         </a>
     ),
 );
