@@ -24,12 +24,12 @@ import * as path from 'path';
             rootPath: path.resolve( __dirname, 'static'),
         }),
         SequelizeModule.forRoot({
-            dialect: 'postgres',
-            host: process.env.POSTGRES_HOST,
-            port: Number(process.env.POSTGRESS_PORT),
-            username: process.env.POSTGRES_USER,
-            password: process.env.POSTGRESS_PASSWORD,
-            database: process.env.POSTGRES_DB,
+            dialect: 'mysql',
+            host: process.env.MYSQL_HOST,
+            port: Number(process.env.MYSQL_PORT),
+            username: process.env.MYSQL_USER,
+            password: process.env.MYSQL_PASSWORD,
+            database: process.env.MYSQL_DB,
             models: [User, Role, UserRoles, Post],
             autoLoadModels: true
         }),
