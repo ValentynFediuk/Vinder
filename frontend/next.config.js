@@ -1,9 +1,8 @@
 /** @type {import('next').NextConfig} */
-const path = require('path');
-
-const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
+var path = require("path");
+module.exports = {
+  reactStrictMode: false,
+  webpack5: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
     prependData: `@import "variables.scss";`,
@@ -11,32 +10,15 @@ const nextConfig = {
   images: {
     domains: [`${process.env.NEXT_PUBLIC_IMAGE_DOMAIN}`],
   },
-  webpack(config) {
-    config.module.rules.push({
-      loader: '@svgr/webpack',
-      issuer: /\.[jt]sx?$/,
-      options: {
-        prettier: false,
-        svgo: true,
-        svgoConfig: {
-          plugins: [
-            {
-              name: 'preset-default',
-              params: {
-                override: {
-                  removeViewBox: false,
-                },
-              },
-            },
-          ],
-        },
-        titleProp: true,
-      },
-      test: /\.svg$/,
-    });
+  webpack: (config) => {
+    config.resolve.fallback = {
+      fs: false,
+      net: false,
+      dns: false,
+      child_process: false,
+      tls: false,
+    };
 
     return config;
   },
 };
-
-module.exports = nextConfig;
