@@ -19,5 +19,7 @@ export interface ButtonProps
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void
     error?: FieldError;
     label?: string;
+    loadingData?: boolean,
+    typeBtn: string,
     children: string
 }
