@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+
+body {
+    color: $white-color;
+    font-family: $main-font;
+    background: #050801;
+}
+
+.title {
+    font-size: 2rem;
+    text-align: center;
+    color: $primary-color;
+    font-family: $main-font;
+}
