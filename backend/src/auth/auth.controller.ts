@@ -18,4 +18,10 @@ export class AuthController {
     registration(@Body() userDto: CreateUserDto) {
         return this.authService.registration(userDto)
     }
+
+    @Post('/get-user')
+    getUser(@Req() req: Request) {
+        return this.authService.getUser(req)
+    }
+
 }

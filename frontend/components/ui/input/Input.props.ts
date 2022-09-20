@@ -19,4 +19,5 @@ export interface InputProps
     onChange?: any
     error?: FieldError;
     label: string;
+    type?: string;
 }

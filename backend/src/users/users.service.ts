@@ -9,7 +9,7 @@ import {BanUserDto} from "./dto/ban-user.dto";
 @Injectable()
 export class UsersService {
 
-    constructor(@InjectModel(User) private userRepository: typeof User,
+    constructor(@InjectModel(User) private userRepository: Repository<User>,
                 private roleService: RolesService) {}
 
     async createUser(dto: CreateUserDto) {
@@ -49,5 +49,9 @@ export class UsersService {
         user.banReason = dto.banReason;
         await user.save();
         return user;
+    }
+
+    async getUserByToken(token) {
+        return await this.userRepository.findOne({where: {token: token}, relations: ['role']})
     }
 }
