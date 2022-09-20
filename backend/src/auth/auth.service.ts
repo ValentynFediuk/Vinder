@@ -42,4 +42,9 @@ export class AuthService {
         }
         throw new UnauthorizedException({message: 'Некорректный емайл или пароль'})
     }
+
+    async getUser(token) {
+        console.log(token);
+        return
+    }
 }

@@ -5,11 +5,12 @@ import {CreateUserDto} from "./dto/create-user.dto";
 import {RolesService} from "../roles/roles.service";
 import {AddRoleDto} from "./dto/add-role.dto";
 import {BanUserDto} from "./dto/ban-user.dto";
+import {Repository} from "sequelize-typescript";
 
 @Injectable()
 export class UsersService {
 
-    constructor(@InjectModel(User) private userRepository: typeof User,
+    constructor(@InjectModel(User) private userRepository: Repository<User>,
                 private roleService: RolesService) {}
 
     async createUser(dto: CreateUserDto) {

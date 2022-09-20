@@ -5,21 +5,15 @@
 //     props?: any
 // }
 
-import {ChangeEvent} from "react";
-import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
+import {ButtonHTMLAttributes} from 'react';
 import { FieldError } from 'react-hook-form';
 
 export interface ButtonProps
     extends
-        DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+        ButtonHTMLAttributes<HTMLButtonElement>
 {
     helperText?: string
-    value?: string
-    props?: any
-    onChange?: (e: ChangeEvent<HTMLInputElement>) => void
     error?: FieldError;
     label?: string;
     loadingData?: boolean,
-    typeBtn?: string,
-    children: string
 }

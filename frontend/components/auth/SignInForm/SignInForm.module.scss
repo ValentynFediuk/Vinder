@@ -1,8 +1,6 @@
 .form_wrapper {
     display: flex;
     flex-direction: column;
-    max-width: 500px;
-    margin: 0 auto;
     > h1 {
         margin-bottom: 20px;
     }
@@ -11,5 +9,8 @@
     }
     > label:last-of-type {
         margin-bottom: 50px;
+    }
+    > button:first-of-type {
+        margin-bottom: 20px;
     }
 }
