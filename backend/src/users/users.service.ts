@@ -5,6 +5,7 @@ import {CreateUserDto} from "./dto/create-user.dto";
 import {RolesService} from "../roles/roles.service";
 import {AddRoleDto} from "./dto/add-role.dto";
 import {BanUserDto} from "./dto/ban-user.dto";
+import {Repository} from "sequelize-typescript";
 
 @Injectable()
 export class UsersService {
@@ -49,9 +50,5 @@ export class UsersService {
         user.banReason = dto.banReason;
         await user.save();
         return user;
-    }
-
-    async getUserByToken(token) {
-        return await this.userRepository.findOne({where: {token: token}, relations: ['role']})
     }
 }

@@ -1,14 +1,11 @@
 .layout {
     background: $main-bg-color;
     min-height: 100vh;
-    > header {
-        height: 20vh;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
     > main {
-        height: 60vh;
+        flex-basis: 500px;
         padding: 20px;
-    }
-    > footer {
-        height: 20vh;
     }
 }

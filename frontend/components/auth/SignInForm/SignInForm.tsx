@@ -26,7 +26,6 @@ export const SignInForm = () => {
     }
 
     return (
-        <>
             <form className={styles.form_wrapper} onSubmit={(e) => submitForm(e)}>
                 <h1 className={'title'}>Sign in</h1>
                 <Input
@@ -45,13 +44,9 @@ export const SignInForm = () => {
                 <Button type={"submit"}>
                     Submit
                 </Button>
-                <Button onClick={() => router.push('/auth/login')}>
-                    fdsfsdfsdsdf
+                <Button type={"button"} onClick={() => router.push('/auth/login')}>
+                    Go to login
                 </Button>
             </form>
-
-
-        </>
-
     )
 }

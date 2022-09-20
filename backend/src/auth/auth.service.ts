@@ -43,12 +43,8 @@ export class AuthService {
         throw new UnauthorizedException({message: 'Некорректный емайл или пароль'})
     }
 
-    async getUser(req: Request) {
-        const user = await this.userService.getUserByToken(req.cookies.token)
-        if (user) {
-            delete user['token']
-            delete user['password']
-        }
-        return user
+    async getUser(token) {
+        console.log(token);
+        return
     }
 }
