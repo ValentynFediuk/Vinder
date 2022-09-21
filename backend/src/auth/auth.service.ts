@@ -44,7 +44,8 @@ export class AuthService {
     }
 
     async getUser(token) {
-        console.log(token);
-        return
+        console.log(this.jwtService.decode(token));
+
+        return this.jwtService.decode(token)
     }
 }

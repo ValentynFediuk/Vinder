@@ -1,31 +1,45 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import styles from "../SignInForm/SignInForm.module.scss";
 import {Input} from "../../ui";
 import {Button} from "../../ui/button/Button";
-import {$api} from "../../../http/axios";
 import {useRouter} from "next/router";
 import {LiquidButton} from "../../ui/LiquidButton/LiquidButton";
+import {$api} from "../../../http/axios";
+import {authAPI} from "../../../services/AuthService";
 
 export const LoginForm = () => {
     const router = useRouter();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
+    const [authUser, {}] = authAPI.useAuthUserMutation()
+
+    const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        // $api.post('/auth/get-user', {
-        //     token: window.sessionStorage.getItem('token')
-        $api.post('/auth/login', {
-            email: email,
-            password: password
-        })
-            .then(function (response) {
-                console.log(response);
-                // window.sessionStorage.setItem('token', response.data.token)
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+
+        await authUser({email: email, password: password})
+            .unwrap()
+            .then((response) => {
+                console.log( response)
+                    window.localStorage.setItem('token', response.token)
+                    router.push('/user')
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        // $api.post('/auth/login', {
+        //     email: email,
+        //     password: password
+        // })
+        //     .then(function (response) {
+        //         window.localStorage.setItem('token', response.data.token)
+        //         router.push('/user')
+        //     })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
+
+
     }
 
     return (
