@@ -6,13 +6,15 @@ interface UserState {
         id: number | null;
         name: string;
         email: string;
-    } | {
-        email: ''
-    } | {}
+    }
 }
 
 const initialState: UserState = {
-    user: {},
+    user: {
+        id: null,
+        name: '',
+        email: ''
+    },
 }
 
 export const userSlice = createSlice({

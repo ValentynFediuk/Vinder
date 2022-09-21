@@ -9,7 +9,6 @@ async function start() {
     const PORT = process.env.PORT || 5000;
     const app = await NestFactory.create(AppModule)
     app.enableCors({origin: process.env.CLIENT_DOMEN, credentials: true});
-    console.log('process.env.CLIENT_DOMEN', process.env.CLIENT_DOMEN)
 
     const config = new DocumentBuilder()
         .setTitle('Урок по продвинотому BACKEND')

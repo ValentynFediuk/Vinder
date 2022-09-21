@@ -14,9 +14,17 @@ export const authAPI = createApi({
     baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:7000'}),
     tagTypes: ['Auth'],
     endpoints: (build) => ({
-        authUser: build.mutation<IAuth, IResponse>({
+        loginUser: build.mutation<IAuth, IResponse>({
             query: (post) => ({
                 url: '/auth/login',
+                method: 'POST',
+                body: post,
+            }),
+            invalidatesTags: ['Auth']
+        }),
+        signupUser: build.mutation<IAuth, IResponse>({
+            query: (post) => ({
+                url: '/auth/registration',
                 method: 'POST',
                 body: post,
             }),
