@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import styles from "../SignInForm/SignInForm.module.scss";
 import {Input} from "../../ui";
 import {Button} from "../../ui/button/Button";
@@ -8,62 +8,34 @@ import {authAPI} from "../../../services/AuthService";
 import {loginFormSchema} from "./Login.schema";
 import {ILogin} from "./Login.model";
 import {SubmitHandler, useForm} from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
+import {yupResolver} from '@hookform/resolvers/yup';
+import EyeHiddenIcon from "../../../images/eye-hidden.svg";
+import EyeIcon from "../../../images/eye-visible.svg";
 
 export const LoginForm = () => {
-    // const [email, setEmail] = useState('')
-    // const [password, setPassword] = useState('')
-
-    const [error, setError] = useState<boolean>(false);
+    const router = useRouter();
+    const [loginUser, {}] = authAPI.useLoginUserMutation()
+    const [inputType, setInputType] = useState(true)
 
     const {
         register,
         handleSubmit,
-        formState: { errors },
-        reset,
+        formState: {errors}
     } = useForm<ILogin>({
         resolver: yupResolver(loginFormSchema),
         mode: 'onChange',
     });
 
-    const { onChange, onBlur, name, ref } = register('email');
-
-    const clearError = () => {
-        setError(false);
-    };
-
-
-
-    const router = useRouter();
-
-    const [loginUser, { isLoading, status }] = authAPI.useLoginUserMutation()
-
-    // const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
-    //     e.preventDefault()
-    //
-    //     await loginUser({email: email, password: password})
-    //         .unwrap()
-    //         .then((response) => {
-    //             window.localStorage.setItem('token', response.token)
-    //             router.push('/user')
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // }
-
     const onSubmit: SubmitHandler<ILogin> = async (formData) => {
         await loginUser({...formData})
             .unwrap()
             .then((response) => {
-                    router.push('/user')
-                    window.localStorage.setItem('token', response.token)
-                })
-            .catch(() => setError(true));
-
-        if (status === 'fulfilled') {
-            reset();
-        }
+                router.push('/user')
+                window.localStorage.setItem('token', response.token)
+            })
+            .catch((e) => {
+                console.log(e);
+            });
     };
 
     return (
@@ -73,29 +45,32 @@ export const LoginForm = () => {
         >
             <h1 className={'title'}>Login</h1>
             <Input
-                label={'E-mail'}
-                type="text"
-                // onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setEmail(e.target.value)}
-                onChange={onChange}
                 {...register('email')}
                 error={errors.email}
+                label={'E-mail'}
+                type="text"
             />
             <Input
-                // onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setPassword(e.target.value)}
                 {...register('password')}
                 error={errors.password}
-                type="password"
                 label={'Password'}
-            />
-            {error && (
-                <div className={styles.form_incorrect}>
-                    Incorrect email or password
-                </div>
-            )}
+                type={inputType ? 'password' : 'text'}
+            >
+                <button
+                    className={'password-input__toggle'}
+                    type='button'
+                    onClick={() => setInputType(!inputType)}
+                >
+                    {inputType ?<EyeHiddenIcon width={20} /> : <EyeIcon width={20} />}
+                </button>
+            </Input>
             <Button type={"submit"}>
                 Submit
             </Button>
-            <LiquidButton type={"button"} onClick={(e) => router.push('/auth/signin')}>
+            <LiquidButton
+                type={"button"}
+                onClick={() => router.push('/auth/signin')}
+            >
                 Go to sign in
             </LiquidButton>
         </form>

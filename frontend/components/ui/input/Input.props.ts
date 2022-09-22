@@ -17,7 +17,6 @@ export interface InputProps
     value?: string
     props?: any
     onChange?: any
-    error?: FieldError;
-    label: string;
-    type?: string;
+    error?: FieldError
+    label: string
 }
