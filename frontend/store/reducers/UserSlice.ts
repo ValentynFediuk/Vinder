@@ -6,7 +6,7 @@ interface UserState {
         id: number | null;
         name: string;
         email: string;
-    }
+    } | any
 }
 
 const initialState: UserState = {
@@ -15,17 +15,20 @@ const initialState: UserState = {
         name: '',
         email: ''
     },
-}
+} as UserState
 
 export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {},
-    extraReducers: {
-        [getUser.fulfilled.type]: (state, action: PayloadAction<UserState>) => {
-            state.user = action.payload;
-        },
-    }
+    extraReducers: (builder) => {
+        builder.addCase(getUser.fulfilled.type, (state, action: PayloadAction) => {
+            state.user = action.payload
+        })
+        // [getUser.fulfilled.type]: (state, action: PayloadAction) => {
+        //     state.user = action.payload;
+        // },
+    },
 })
 
 export default userSlice.reducer;
