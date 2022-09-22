@@ -43,7 +43,7 @@ export const LoginForm = () => {
             className={styles.form_wrapper}
             onSubmit={handleSubmit(onSubmit)}
         >
-            <h1 className={'title'}>Login</h1>
+            <h1 className={'title'}>Sign in</h1>
             <Input
                 {...register('email')}
                 error={errors.email}
@@ -71,7 +71,7 @@ export const LoginForm = () => {
                 type={"button"}
                 onClick={() => router.push('/auth/signin')}
             >
-                Go to sign in
+                Go to sign up
             </LiquidButton>
         </form>
     )

@@ -6,7 +6,7 @@ import {useRouter} from "next/router";
 import {authAPI} from "../../../services/AuthService";
 import {LiquidButton} from "../../ui/LiquidButton/LiquidButton";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {ISingIn} from "./SingIn.model";
+import {ISingUp} from "./SingUp.model";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {SignInFormSchema} from "./SignIn.schema";
 import EyeIcon from '../../../images/eye-visible.svg';
@@ -15,18 +15,18 @@ import EyeHiddenIcon from '../../../images/eye-hidden.svg';
 export const SignInForm = () => {
     const [inputType, setInputType] = useState(true)
     const router = useRouter();
-    const [loginUser, {}] = authAPI.useLoginUserMutation()
+    const [signupUser, {}] = authAPI.useLoginUserMutation()
     const {
         register,
         handleSubmit,
         formState: {errors}
-    } = useForm<ISingIn>({
+    } = useForm<ISingUp>({
         resolver: yupResolver(SignInFormSchema),
         mode: 'onChange',
     });
 
-    const onSubmit: SubmitHandler<ISingIn> = async (formData) => {
-        await loginUser({...formData})
+    const onSubmit: SubmitHandler<ISingUp> = async (formData) => {
+        await signupUser({...formData})
             .unwrap()
             .then((response) => {
                 router.push('/user')
@@ -42,7 +42,13 @@ export const SignInForm = () => {
             className={styles.form_wrapper}
             onSubmit={handleSubmit(onSubmit)}
         >
-            <h1 className={'title'}>Sign in</h1>
+            <h1 className={'title'}>Sign up</h1>
+            <Input
+                {...register('name')}
+                error={errors.name}
+                label={'Name'}
+                type="text"
+            />
             <Input
                 {...register('email')}
                 error={errors.email}
@@ -68,7 +74,7 @@ export const SignInForm = () => {
             </Button>
 
             <LiquidButton type={"button"} onClick={() => router.push('/auth/login')}>
-                Go to login
+                Go to sign in
             </LiquidButton>
         </form>
     )

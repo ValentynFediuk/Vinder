@@ -17,6 +17,7 @@ export class AuthService {
     }
 
     async registration(userDto: CreateUserDto) {
+        console.log('sdfsdfsd', userDto)
         const candidate = await this.userService.getUserByEmail(userDto.email);
         if (candidate) {
             throw new HttpException('Пользователь с таким email существует', HttpStatus.BAD_REQUEST);
@@ -27,7 +28,7 @@ export class AuthService {
     }
 
     private async generateToken(user: User) {
-        const payload = {email: user.email, id: user.id, roles: user.roles}
+        const payload = {name: user.name, email: user.email, id: user.id, roles: user.roles}
         return {
             token: this.jwtService.sign(payload)
         }
