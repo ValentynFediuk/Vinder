@@ -1,9 +1,9 @@
-export interface ILogin {
+export interface ISingIn {
     email: string;
     password: string;
 }
 
-export interface ILoginResponse {
+export interface ISingInResponse {
     user: {
         email: string;
     };

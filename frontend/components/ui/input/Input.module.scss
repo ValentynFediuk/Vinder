@@ -7,6 +7,14 @@
     font-size: 16px;
     line-height: 1.5;
     overflow: hidden;
+    & .input__error {
+        padding-top: 10px;
+        color: $input-color-error;
+    }
+    & .password-input__toggle {
+
+
+    }
     > input,
     > textarea {
         box-sizing: border-box;

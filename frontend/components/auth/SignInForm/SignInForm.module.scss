@@ -13,4 +13,12 @@
     > button:first-of-type {
         margin-bottom: 20px;
     }
+    :global {
+        .password-input__toggle {
+            position: absolute;
+            top: 23px;
+            right: 15px;
+            fill: $input-color-focus;
+        }
+    }
 }

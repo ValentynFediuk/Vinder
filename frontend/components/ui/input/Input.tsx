@@ -3,11 +3,12 @@ import {InputProps} from "./Input.props";
 import styles from './Input.module.scss';
 
 export const Input = forwardRef(
-    ({ error, label, type, ...props }: InputProps, ref: ForwardedRef<HTMLInputElement>) => (
-        <label className={styles.wrapper}>
+    ({ error, label, type, children, ...props }: InputProps, ref: ForwardedRef<HTMLInputElement>) => (
+        <label className={`${styles.wrapper} ${error && 'error'}`}>
             <input placeholder={" "} ref={ref} type={type} {...props} />
             <span>{label}</span>
-            {error && <div className={styles.input_error}>{error.message}</div>}
+            {error && <p className={styles.input__error}>{error.message}</p>}
+            {children}
         </label>
     ),
 );

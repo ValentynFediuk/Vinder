@@ -1,50 +1,76 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import styles from "../SignInForm/SignInForm.module.scss";
 import {Input} from "../../ui";
 import {Button} from "../../ui/button/Button";
 import {useRouter} from "next/router";
 import {LiquidButton} from "../../ui/LiquidButton/LiquidButton";
 import {authAPI} from "../../../services/AuthService";
+import {loginFormSchema} from "./Login.schema";
+import {ILogin} from "./Login.model";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {yupResolver} from '@hookform/resolvers/yup';
+import EyeHiddenIcon from "../../../images/eye-hidden.svg";
+import EyeIcon from "../../../images/eye-visible.svg";
 
 export const LoginForm = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-
     const router = useRouter();
-
     const [loginUser, {}] = authAPI.useLoginUserMutation()
+    const [inputType, setInputType] = useState(true)
 
-    const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    const {
+        register,
+        handleSubmit,
+        formState: {errors}
+    } = useForm<ILogin>({
+        resolver: yupResolver(loginFormSchema),
+        mode: 'onChange',
+    });
 
-        await loginUser({email: email, password: password})
+    const onSubmit: SubmitHandler<ILogin> = async (formData) => {
+        await loginUser({...formData})
             .unwrap()
             .then((response) => {
-                window.localStorage.setItem('token', response.token)
                 router.push('/user')
+                window.localStorage.setItem('token', response.token)
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch((e) => {
+                console.log(e);
             });
-    }
+    };
 
     return (
-        <form className={styles.form_wrapper} onSubmit={(e) => submitForm(e)}>
+        <form
+            className={styles.form_wrapper}
+            onSubmit={handleSubmit(onSubmit)}
+        >
             <h1 className={'title'}>Login</h1>
             <Input
+                {...register('email')}
+                error={errors.email}
                 label={'E-mail'}
                 type="text"
-                onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setEmail(e.target.value)}
             />
             <Input
-                onChange={(e: { target: { value: React.SetStateAction<string>; }; }) => setPassword(e.target.value)}
-                type="password"
+                {...register('password')}
+                error={errors.password}
                 label={'Password'}
-            />
+                type={inputType ? 'password' : 'text'}
+            >
+                <button
+                    className={'password-input__toggle'}
+                    type='button'
+                    onClick={() => setInputType(!inputType)}
+                >
+                    {inputType ?<EyeHiddenIcon width={20} /> : <EyeIcon width={20} />}
+                </button>
+            </Input>
             <Button type={"submit"}>
                 Submit
             </Button>
-            <LiquidButton type={"button"} onClick={(e) => router.push('/auth/signin')}>
+            <LiquidButton
+                type={"button"}
+                onClick={() => router.push('/auth/signin')}
+            >
                 Go to sign in
             </LiquidButton>
         </form>
