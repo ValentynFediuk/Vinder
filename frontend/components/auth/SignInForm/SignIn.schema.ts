@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const SignInFormSchema = yup.object({
+export const loginFormSchema = yup.object({
     email: yup
         .string()
         .email('Invalid email address')

@@ -25,9 +25,6 @@ export const userSlice = createSlice({
         builder.addCase(getUser.fulfilled.type, (state, action: PayloadAction) => {
             state.user = action.payload
         })
-        // [getUser.fulfilled.type]: (state, action: PayloadAction) => {
-        //     state.user = action.payload;
-        // },
     },
 })
 

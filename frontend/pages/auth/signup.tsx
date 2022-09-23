@@ -1,13 +1,11 @@
-import React, {FunctionComponent, useEffect} from 'react';
-import {LoginForm} from "../../components/auth/LoginForm/LoginForm";
+import React, {FunctionComponent} from 'react';
+import {SignUpForm} from "../../components/auth/SignUpForm/SignUpForm";
 import AuthLayout from "../../layouts/AuthLayout";
 
 const Login: FunctionComponent = () => {
-
-
     return (
         <AuthLayout>
-            <LoginForm/>
+            <SignUpForm/>
         </AuthLayout>
     );
 };
