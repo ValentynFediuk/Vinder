@@ -16,7 +16,8 @@ export class FilesService {
             fs.writeFileSync(path.join(filePath, fileName), file.buffer)
             return fileName;
         } catch (e) {
-            throw new HttpException('Произошла ошибка при записи файла', HttpStatus.INTERNAL_SERVER_ERROR)
+            console.log(e.message)
+            throw new HttpException('An error has occurred while uploading the file', HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 

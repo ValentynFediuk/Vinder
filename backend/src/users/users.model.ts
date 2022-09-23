@@ -8,6 +8,7 @@ interface UserCreationAttrs {
     name: string;
     email: string;
     password: string;
+    image: string;
 }
 
 @Table({tableName: 'users'})
@@ -24,6 +25,9 @@ export class User extends Model<User, UserCreationAttrs> {
     @ApiProperty({example: '12345678', description: 'Пароль'})
     @Column({type: DataType.STRING, allowNull: false})
     password: string;
+
+    @Column({type: DataType.STRING})
+    image: string;
 
     @ApiProperty({example: 'true', description: 'Забанен или нет'})
     @Column({type: DataType.BOOLEAN, defaultValue: false})

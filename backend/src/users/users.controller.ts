@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post, UseGuards, UsePipes} from '@nestjs/common';
+import {Body, Controller, Get, Post, UploadedFile, UseGuards, UseInterceptors, UsePipes} from '@nestjs/common';
 import {CreateUserDto} from "./dto/create-user.dto";
 import {UsersService} from "./users.service";
 import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
@@ -9,6 +9,8 @@ import {RolesGuard} from "../auth/roles.guard";
 import {AddRoleDto} from "./dto/add-role.dto";
 import {BanUserDto} from "./dto/ban-user.dto";
 import {ValidationPipe} from "../pipes/validation.pipe";
+import {FileInterceptor} from "@nestjs/platform-express";
+import {CreatePostDto} from "../posts/dto/create-post.dto";
 
 @ApiTags('Пользователи')
 @Controller('users')
@@ -21,6 +23,14 @@ export class UsersController {
     @Post()
     create(@Body() userDto: CreateUserDto) {
         return this.usersService.createUser(userDto);
+    }
+
+    @ApiOperation({summary: 'Upload user avatar'})
+    @ApiResponse({status: 200, type: User})
+    @Post('/upload-avatar')
+    @UseInterceptors(FileInterceptor('image'))
+    uploadAvatar(@Body() @UploadedFile() image) {
+        return this.usersService.uploadAvatar(image);
     }
 
     @ApiOperation({summary: 'Получить всех пользователей'})

@@ -13,6 +13,14 @@ export const userAPI = createApi({
                 body: post,
             }),
             invalidatesTags: ['User']
+        }),
+        uploadAvatar: build.mutation<IUser, IUser> ({
+            query: (post) => ({
+                url: 'auth/upload-avatar',
+                method: 'post',
+                body: post,
+            }),
+            invalidatesTags: ['User']
         })
     })
 })
