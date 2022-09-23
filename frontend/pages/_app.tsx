@@ -4,15 +4,13 @@ import type { AppProps } from 'next/app'
 import {Provider} from "react-redux";
 import {setupStore} from "../store/store";
 
-function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
 
-  const store = setupStore();
+    const store = setupStore();
 
-  return (
-    <Provider store={store}>
-      <Component {...pageProps} />
-    </Provider>
-  )
+    return (
+        <Provider store={store}>
+            <Component {...pageProps} />
+        </Provider>
+    )
 }
-
-export default MyApp

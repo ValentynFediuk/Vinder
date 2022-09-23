@@ -11,7 +11,7 @@ export const getUser = createAsyncThunk(
             })
             return response.data;
         } catch (e) {
-            return thunkAPI.rejectWithValue("Не удалось загрузить пользователей")
+            return thunkAPI.rejectWithValue("Didn't get user")
         }
     }
 )

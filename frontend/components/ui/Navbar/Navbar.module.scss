@@ -1,8 +1,17 @@
 .navbar {
     background: #050801;
     height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     & h1 {
         text-align: center;
+    }
+    & button {
+        color: #fff;
+        position: absolute;
+        right: 25px;
+        top: 15px
     }
 }
 

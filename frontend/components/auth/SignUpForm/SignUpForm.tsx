@@ -1,33 +1,32 @@
+import styles from './SignUpForm.module.scss'
 import React, {useState} from "react";
-import styles from "../SignInForm/SignInForm.module.scss";
 import {Input} from "../../ui";
 import {Button} from "../../ui/button/Button";
 import {useRouter} from "next/router";
-import {LiquidButton} from "../../ui/LiquidButton/LiquidButton";
 import {authAPI} from "../../../services/AuthService";
-import {loginFormSchema} from "./Login.schema";
-import {ILogin} from "./Login.model";
+import {LiquidButton} from "../../ui/LiquidButton/LiquidButton";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {yupResolver} from '@hookform/resolvers/yup';
-import EyeHiddenIcon from "../../../images/eye-hidden.svg";
-import EyeIcon from "../../../images/eye-visible.svg";
+import {ISingUp} from "./SingUp.model";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {SignInFormSchema} from "./SignUp.schema";
+import EyeIcon from '../../../images/eye-visible.svg';
+import EyeHiddenIcon from '../../../images/eye-hidden.svg';
 
-export const LoginForm = () => {
-    const router = useRouter();
-    const [loginUser, {}] = authAPI.useLoginUserMutation()
+export const SignUpForm = () => {
     const [inputType, setInputType] = useState(true)
-
+    const router = useRouter();
+    const [signupUser, {}] = authAPI.useSignupUserMutation()
     const {
         register,
         handleSubmit,
         formState: {errors}
-    } = useForm<ILogin>({
-        resolver: yupResolver(loginFormSchema),
+    } = useForm<ISingUp>({
+        resolver: yupResolver(SignInFormSchema),
         mode: 'onChange',
     });
 
-    const onSubmit: SubmitHandler<ILogin> = async (formData) => {
-        await loginUser({...formData})
+    const onSubmit: SubmitHandler<ISingUp> = async (formData) => {
+        await signupUser({...formData})
             .unwrap()
             .then((response) => {
                 router.push('/user')
@@ -43,7 +42,13 @@ export const LoginForm = () => {
             className={styles.form_wrapper}
             onSubmit={handleSubmit(onSubmit)}
         >
-            <h1 className={'title'}>Sign in</h1>
+            <h1 className={'title'}>Sign up</h1>
+            <Input
+                {...register('name')}
+                error={errors.name}
+                label={'Name'}
+                type="text"
+            />
             <Input
                 {...register('email')}
                 error={errors.email}
@@ -67,11 +72,8 @@ export const LoginForm = () => {
             <Button type={"submit"}>
                 Submit
             </Button>
-            <LiquidButton
-                type={"button"}
-                onClick={() => router.push('/auth/signin')}
-            >
-                Go to sign up
+            <LiquidButton type={"button"} onClick={() => router.push('/auth/signin')}>
+                Go to sign in
             </LiquidButton>
         </form>
     )
