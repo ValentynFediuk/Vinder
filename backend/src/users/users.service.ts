@@ -6,12 +6,13 @@ import {RolesService} from "../roles/roles.service";
 import {AddRoleDto} from "./dto/add-role.dto";
 import {BanUserDto} from "./dto/ban-user.dto";
 import {Repository} from "sequelize-typescript";
+import {FilesService} from "../files/files.service";
 
 @Injectable()
 export class UsersService {
 
     constructor(@InjectModel(User) private userRepository: Repository<User>,
-                private roleService: RolesService) {}
+                private roleService: RolesService, private fileService: FilesService) {}
 
     async createUser(dto: CreateUserDto) {
         const user = await this.userRepository.create(dto);
@@ -20,6 +21,12 @@ export class UsersService {
         user.roles = [role]
         return user;
     }
+
+    // async uploadAvatar(image: any) {
+    //     const fileName = await this.fileService.createFile(image);
+    //     const avatar = await this.userRepository.create({image: fileName})
+    //     return avatar;
+    // }
 
     async getAllUsers() {
         const users = await this.userRepository.findAll({include: {all: true}});
@@ -34,7 +41,7 @@ export class UsersService {
     async addRole(dto: AddRoleDto) {
         const user = await this.userRepository.findByPk(dto.userId);
         const role = await this.roleService.getRoleByValue(dto.value);
-        if (role && user) {
+        if (role && user)
             await user.$add('role', role.id);
             return dto;
         }

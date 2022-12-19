@@ -15,3 +15,18 @@ export const getUser = createAsyncThunk(
         }
     }
 )
+
+export const uploadAvatar = createAsyncThunk(
+    'auth/upload-avatar',
+    async (file: any, thunkAPI) => {
+        try {
+            const response = await $api.post<IUser[]>('/files/upload',
+              file
+            )
+
+            return response.data;
+        } catch (e) {
+            return thunkAPI.rejectWithValue("Didn't upload avatar")
+        }
+    }
+)

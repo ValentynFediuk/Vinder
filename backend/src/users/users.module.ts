@@ -8,17 +8,20 @@ import {UserRoles} from "../roles/user-roles.model";
 import {RolesModule} from "../roles/roles.module";
 import {AuthModule} from "../auth/auth.module";
 import {Post} from "../posts/posts.model";
+import {FilesModule} from "../files/files.module";
 
 @Module({
   controllers: [UsersController],
   providers: [UsersService],
   imports: [
-      SequelizeModule.forFeature([User, Role, UserRoles, Post]),
+      SequelizeModule.forFeature([User]),
       RolesModule,
+      FilesModule,
       forwardRef(() => AuthModule),
   ],
     exports: [
         UsersService,
+        FilesModule
     ]
 })
 export class UsersModule {}

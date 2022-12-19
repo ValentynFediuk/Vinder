@@ -12,7 +12,7 @@ import {FilesModule} from "../files/files.module";
   providers: [PostsService],
   controllers: [PostsController],
   imports: [
-    SequelizeModule.forFeature([User, Post]),
+    SequelizeModule.forFeature([Post]),
       FilesModule
   ]
 })
