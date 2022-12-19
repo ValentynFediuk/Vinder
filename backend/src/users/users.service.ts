@@ -41,7 +41,7 @@ export class UsersService {
     async addRole(dto: AddRoleDto) {
         const user = await this.userRepository.findByPk(dto.userId);
         const role = await this.roleService.getRoleByValue(dto.value);
-        if (role && user)
+        if (role && user) {
             await user.$add('role', role.id);
             return dto;
         }
@@ -58,4 +58,16 @@ export class UsersService {
         await user.save();
         return user;
     }
+
+
+    async addAvatar(dto: AddAvatarDto) {
+        const avatar = await this.userRepository.findByPk(dto.userId);
+        const avatar = await this.avatarService.getAvatarByValue(dto.value);
+        if (avatar && user) {
+            await user.$add('avatar', Avatar.id);
+            return dto;
+        }
+        throw new HttpException('User or avatar not found', HttpStatus.NOT_FOUND);
+    }
+
 }
