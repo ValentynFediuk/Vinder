@@ -30,8 +30,9 @@ import * as path from 'path';
             username: process.env.MYSQL_USER,
             password: process.env.MYSQL_PASSWORD,
             database: process.env.MYSQL_DB,
-            models: [User, Role, UserRoles, Post],
-            autoLoadModels: true
+            // models: [User, Role, UserRoles, Post],
+            autoLoadModels: true,
+            synchronize: true
         }),
         UsersModule,
         RolesModule,

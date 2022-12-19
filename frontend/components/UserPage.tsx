@@ -13,12 +13,9 @@ export const UserPage = () => {
     }, [])
 
     const foo = (e: any) => {
-        const avatar = e.target.files[0]
         const formData = new FormData()
-        formData.append('file', avatar)
-        dispatch(uploadAvatar(e.target.files[0]))
-
-        console.log('avatar', formData)
+        formData.append('file', e.target.files[0])
+        dispatch(uploadAvatar(formData))
     }
 
     return (
@@ -34,11 +31,18 @@ export const UserPage = () => {
             {/*        </section>*/}
             {/*    )}*/}
             {/*</Dropzone>*/}
-            <input
-                type="file"
-                onChange={(e) => foo(e)}
-                accept="image/png, image/jpeg"
-            />
-        </MainLayout>
+          <img
+            src=''
+            alt=''
+          />
+            <form>
+                <input
+                  type="file"
+                  onChange={(e) => foo(e)}
+                  accept="image/png, image/jpeg"
+                  name="<ffff>" placeholder="Select file"
+                />
+            </form>
+            </MainLayout>
     )
 }

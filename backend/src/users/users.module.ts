@@ -14,7 +14,7 @@ import {FilesModule} from "../files/files.module";
   controllers: [UsersController],
   providers: [UsersService],
   imports: [
-      SequelizeModule.forFeature([User, Role, UserRoles, Post]),
+      SequelizeModule.forFeature([User]),
       RolesModule,
       FilesModule,
       forwardRef(() => AuthModule),

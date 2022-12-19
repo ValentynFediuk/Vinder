@@ -8,11 +8,11 @@ export class PostsController {
 
     constructor(private postService: PostsService) {}
 
-    @Post()
-    @UseInterceptors(FileInterceptor('image'))
-    createPost(@Body() dto: CreatePostDto,
-               @UploadedFile() image) {
-        return this.postService.create(dto, image)
-    }
+    // @Post()
+    // @UseInterceptors(FileInterceptor('photo', { dest: './uploads' }))
+    // createPost(@Body() dto: CreatePostDto,
+    //            @UploadedFile() image) {
+    //     return this.postService.create(dto, image)
+    // }
 
 }

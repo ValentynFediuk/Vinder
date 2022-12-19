@@ -25,18 +25,19 @@ export class UsersController {
         return this.usersService.createUser(userDto);
     }
 
-    @ApiOperation({summary: 'Upload user avatar'})
-    @ApiResponse({status: 200, type: User})
-    @Post('/upload-avatar')
-    @UseInterceptors(FileInterceptor('image'))
-    uploadAvatar(@Body() @UploadedFile() image) {
-        return this.usersService.uploadAvatar(image);
-    }
+    // @ApiOperation({summary: 'Upload user avatar'})
+    // @ApiResponse({status: 200, type: User})
+    // @Post('/upload-avatar')
+    // @UseInterceptors(FileInterceptor('photo'))
+    // uploadAvatar(@Body() @UploadedFile() image) {
+    //     console.log('photo', image)
+    //     return this.usersService.uploadAvatar(image);
+    // }
 
     @ApiOperation({summary: 'Получить всех пользователей'})
     @ApiResponse({status: 200, type: [User]})
-    @Roles("ADMIN")
-    @UseGuards(RolesGuard)
+    // @Roles("ADMIN")
+    // @UseGuards(RolesGuard)
     @Get()
     getAll() {
         return this.usersService.getAllUsers();
@@ -59,4 +60,5 @@ export class UsersController {
     ban(@Body() dto: BanUserDto) {
         return this.usersService.ban(dto);
     }
+
 }
