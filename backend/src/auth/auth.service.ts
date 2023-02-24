@@ -16,16 +16,16 @@ export class AuthService {
         return this.generateToken(user)
     }
 
-    async registration(userDto: CreateUserDto) {
-        console.log('sdfsdfsd', userDto)
-        const candidate = await this.userService.getUserByEmail(userDto.email);
-        if (candidate) {
-            throw new HttpException('Пользователь с таким email существует', HttpStatus.BAD_REQUEST);
-        }
-        const hashPassword = await bcrypt.hash(userDto.password, 5);
-        const user = await this.userService.createUser({...userDto, password: hashPassword})
-        return this.generateToken(user)
-    }
+    // async registration(userDto: CreateUserDto) {
+    //     console.log('sdfsdfsd', userDto)
+    //     const candidate = await this.userService.getUserByEmail(userDto.email);
+    //     if (candidate) {
+    //         throw new HttpException('Пользователь с таким email существует', HttpStatus.BAD_REQUEST);
+    //     }
+    //     const hashPassword = await bcrypt.hash(userDto.password, 5);
+    //     const user = await this.userService.createUser({...userDto, password: hashPassword})
+    //     return this.generateToken(user)
+    // }
 
     private async generateToken(user: User) {
         const payload = {name: user.name, email: user.email, id: user.id, roles: user.roles}

@@ -20,7 +20,7 @@ export const uploadAvatar = createAsyncThunk(
     'auth/upload-avatar',
     async (file: any, thunkAPI) => {
         try {
-            const response = await $api.post<IUser[]>('/files/upload',
+            const response = await $api.post<IUser[]>('/users/upload',
               file
             )
 

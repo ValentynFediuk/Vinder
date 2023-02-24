@@ -1,4 +1,14 @@
-import {Body, Controller, Get, Post, UploadedFile, UseGuards, UseInterceptors, UsePipes} from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    Post,
+    UploadedFile,
+    UseGuards,
+    UseInterceptors,
+    UsePipes,
+    Req
+} from '@nestjs/common'
 import {CreateUserDto} from "./dto/create-user.dto";
 import {UsersService} from "./users.service";
 import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
@@ -11,18 +21,31 @@ import {BanUserDto} from "./dto/ban-user.dto";
 import {ValidationPipe} from "../pipes/validation.pipe";
 import {FileInterceptor} from "@nestjs/platform-express";
 import {CreatePostDto} from "../posts/dto/create-post.dto";
+import { AddAvatarDto } from './dto/add-avatar.dto'
+import { Express } from 'express'
 
 @ApiTags('Пользователи')
 @Controller('users')
 export class UsersController {
 
     constructor(private usersService: UsersService) {}
+    //
+    // @ApiOperation({summary: 'User creation'})
+    // @ApiResponse({status: 200, type: User})
+    // @Post()
+    // create(@Body() userDto: CreateUserDto) {
+    //     return this.usersService.createUser(userDto);
+    // }
 
-    @ApiOperation({summary: 'Создание пользователя'})
+    @ApiOperation({summary: 'Avatar uploading'})
     @ApiResponse({status: 200, type: User})
-    @Post()
-    create(@Body() userDto: CreateUserDto) {
-        return this.usersService.createUser(userDto);
+    @Post('upload')
+    // @Roles("USER")
+    // @UseGuards(RolesGuard)
+    @UseInterceptors(FileInterceptor('file'))
+    addAvatar(@UploadedFile() file: Express.Multer.File, @Req() req: Request & {user: User} ) {
+        const userId = 1;
+        return this.usersService.addAvatar(userId, file);
     }
 
     // @ApiOperation({summary: 'Upload user avatar'})

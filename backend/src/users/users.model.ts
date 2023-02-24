@@ -27,7 +27,7 @@ export class User extends Model<User, UserCreationAttrs> {
     password: string;
 
     @Column({type: DataType.STRING})
-    image: string;
+    avatar: string;
 
     @ApiProperty({example: 'true', description: 'Забанен или нет'})
     @Column({type: DataType.BOOLEAN, defaultValue: false})

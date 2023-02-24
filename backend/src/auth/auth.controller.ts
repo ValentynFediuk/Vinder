@@ -15,10 +15,10 @@ export class AuthController {
         return this.authService.login(userDto)
     }
 
-    @Post('/registration')
-    registration(@Body() userDto: CreateUserDto) {
-        return this.authService.registration(userDto)
-    }
+    // @Post('/registration')
+    // registration(@Body() userDto: CreateUserDto) {
+    //     return this.authService.registration(userDto)
+    // }
 
     @Post('/get-user')
     getUser(@Body('token') token: string) {
