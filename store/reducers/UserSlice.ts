@@ -20,19 +20,19 @@ const initialState: UserState = {
     },
 } as UserState
 
-export const userSlice = createSlice({
-    name: 'user',
-    initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-        builder
-            .addCase(getUser.fulfilled.type, (state, action: PayloadAction) => {
-                state.user = action.payload
-            })
-            .addCase(uploadAvatar.fulfilled.type, (state, action: PayloadAction) => {
-                state.avatar = action.payload
-            })
-    },
-})
+// export const userSlice = createSlice({
+//     name: 'user',
+//     initialState,
+//     reducers: {},
+//     extraReducers: (builder) => {
+//         builder
+//             .addCase(getUser.fulfilled.type, (state, action: PayloadAction) => {
+//                 state.user = action.payload
+//             })
+//             .addCase(uploadAvatar.fulfilled.type, (state, action: PayloadAction) => {
+//                 state.avatar = action.payload
+//             })
+//     },
+// })
 
-export default userSlice.reducer;
+// export default userSlice.reducer;
