@@ -32,7 +32,7 @@ export const UserPage = () => {
             {/*    )}*/}
             {/*</Dropzone>*/}
           <img
-            src=''
+            src='components'
             alt=''
           />
             <form>
